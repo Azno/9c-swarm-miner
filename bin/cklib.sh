@@ -196,7 +196,7 @@ function cBuildParams() {
     CurlSnap1=`curl -s -w '%{time_connect}' -o /dev/null $SNAPSHOT0`
     CurlSnap2=`curl -s -w '%{time_connect}' -o /dev/null $SNAPSHOT1`
 
-    if [ $CurlSnap1 > $CurlSnap2 ]; then
+    if [[ "$CurlSnap1" > "$CurlSnap2" ]]; then
         SNAPSHOT=`echo $SNAPSHOT1.zip`
     else
         SNAPSHOT=`echo $SNAPSHOT0.zip`
