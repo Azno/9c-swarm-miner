@@ -189,14 +189,14 @@ function cSettings() {
 #| Check: Build Params
 function cBuildParams() {
     BUILDPARAMS="https://download.nine-chronicles.com/apv.json"
-    APV=`curl --silent $BUILDPARAMS | jq '.apv'`
-    DOCKERIMAGE=`curl --silent $BUILDPARAMS | jq  '.docker'`
+    APV=`curl --silent $BUILDPARAMS | jq -r '.apv'`
+    DOCKERIMAGE=`curl --silent $BUILDPARAMS | jq -r '.docker'`
     SNAPSHOT0=`curl --silent $BUILDPARAMS | jq -r '."snapshotPaths:"[0]'`
     SNAPSHOT1=`curl --silent $BUILDPARAMS | jq -r '."snapshotPaths:"[1]'`
     CurlSnap1=`curl -s -w '%{time_connect}' -o /dev/null $SNAPSHOT0`
     CurlSnap2=`curl -s -w '%{time_connect}' -o /dev/null $SNAPSHOT1`
 
-    if [[ "$CurlSnap1" > "$CurlSnap2" ]]; then
+    if [[ $CurlSnap1 > $CurlSnap2 ]]; then
         SNAPSHOT=`echo $SNAPSHOT1.zip`
     else
         SNAPSHOT=`echo $SNAPSHOT0.zip`
